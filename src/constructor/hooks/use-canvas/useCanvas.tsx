@@ -1,26 +1,30 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { Canvas } from "fabric";
-import { addImageToCanvas, addTriangleToCanvas, initializeCanvas } from "./useCanvas.funcs";
+import {
+    addImageToCanvas,
+    addTriangleToCanvas,
+    initializeCanvas,
+    removeObjectFromCanvas,
+} from "./useCanvas.funcs";
 import { heightContainerCanvas, widthContainerCanvas } from "./canvas-constants";
+import { useKeyPress } from "@/constructor/hooks/use-key-press/useKeyPress";
+import { keyNames } from "@/constructor/hooks/use-key-press/key-press-constants";
 
 interface UseCanvasProps {
     width?: number;
     height?: number;
 }
 
-interface UseCanvasReturn {
-    canvasRef: React.RefObject<HTMLDivElement | null>;
-    canvas: Canvas | null;
-    addImage: (imageSrc: string) => Promise<void>;
-    addTriangle: () => void;
-}
-
 export const useCanvas = ({
     width = widthContainerCanvas,
     height = heightContainerCanvas,
-}: UseCanvasProps = {}): UseCanvasReturn => {
+}: UseCanvasProps = {}) => {
     const canvasRef = useRef<HTMLDivElement>(null);
     const [canvas, setCanvas] = useState<Canvas | null>(null);
+
+    const removeObject = useCallback(() => {
+        removeObjectFromCanvas(canvas);
+    }, [canvas]);
 
     useEffect(() => {
         const fabricCanvas = initializeCanvas(canvasRef.current, width, height);
@@ -30,6 +34,14 @@ export const useCanvas = ({
             if (fabricCanvas) fabricCanvas.dispose();
         };
     }, [width, height]);
+
+    useKeyPress(
+        keyNames.delete,
+        () => {
+            if (canvasRef.current) removeObject();
+        },
+        [canvas],
+    );
 
     const addImage = (imageSrc: string) => {
         return addImageToCanvas(canvas, imageSrc);
@@ -44,5 +56,6 @@ export const useCanvas = ({
         canvas,
         addImage,
         addTriangle,
+        removeObject,
     };
 };

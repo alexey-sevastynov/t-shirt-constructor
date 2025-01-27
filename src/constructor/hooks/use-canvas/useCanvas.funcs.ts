@@ -48,3 +48,15 @@ export const addTriangleToCanvas = (canvas: Canvas | null) => {
     canvas.add(triangle);
     canvas.renderAll();
 };
+
+export const removeObjectFromCanvas = (canvas: Canvas | null) => {
+    if (!canvas) return;
+
+    const activeObject = canvas.getActiveObject();
+
+    if (activeObject) {
+        canvas.remove(activeObject);
+        canvas.renderAll();
+        canvas.discardActiveObject();
+    }
+};
