@@ -13,7 +13,7 @@ export function Toolbar({ onAddTriangle, onFileChange }: ToolbarProps) {
                 onClick={onAddTriangle}
                 className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
             >
-                add triangle
+                Add triangle
             </button>
             <input type="file" accept="image/*" onChange={onFileChange} className="mt-4" />
         </div>
