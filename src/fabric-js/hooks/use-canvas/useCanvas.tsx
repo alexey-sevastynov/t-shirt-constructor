@@ -7,8 +7,8 @@ import {
     removeObjectFromCanvas,
 } from "./useCanvas.funcs";
 import { heightContainerCanvas, widthContainerCanvas } from "./canvas-constants";
-import { useKeyPress } from "@/constructor/hooks/use-key-press/useKeyPress";
-import { keyNames } from "@/constructor/hooks/use-key-press/key-press-constants";
+import { useKeyPress } from "@/fabric-js/hooks/use-key-press/useKeyPress";
+import { keyNames } from "@/fabric-js/hooks/use-key-press/key-press-constants";
 
 interface UseCanvasProps {
     width?: number;

@@ -1,9 +1,9 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { useCanvas } from "./hooks/use-canvas/useCanvas";
-import { Toolbar } from "@/constructor/components/Toolbar";
-import { CanvasDisplay } from "@/constructor/components/CanvasDisplay";
-import { handleFileChange } from "@/constructor/Constructor.funcs";
+import { Toolbar } from "@/fabric-js/components/Toolbar";
+import { CanvasDisplay } from "@/fabric-js/components/CanvasDisplay";
+import { handleFileChange } from "@/fabric-js/Constructor.funcs";
 
 export function Constructor() {
     const { canvasRef, addImage, addTriangle, removeObject } = useCanvas();
