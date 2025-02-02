@@ -2,12 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import NextImage from "next/image";
 import { Layer, Stage, Image as KonvaImage, Transformer } from "react-konva";
 import Konva from "konva";
-import { CanvasDisplayProps } from "./canvas-display.interfaces";
+import { CanvasDisplayProps } from "@/react-konva/components/canvas-display/canvas-display.interfaces";
+import { useImageDimensions } from "@/react-konva/hooks/useImageDimensions";
 
 export function CanvasDisplay({ imageState, onPositionChange, onTransformChange }: CanvasDisplayProps) {
     const imageRef = useRef<Konva.Image>(null);
-    const transformerRef = useRef<Konva.Transformer>(null);
     const [selected, setSelected] = useState(false);
+
+    const transformerRef = useRef<Konva.Transformer>(null);
+    const nextImageRef = useRef<HTMLImageElement | null>(null);
+
+    const imageDimensions = useImageDimensions(nextImageRef);
 
     useEffect(() => {
         if (imageRef.current && transformerRef.current) {
@@ -23,16 +28,22 @@ export function CanvasDisplay({ imageState, onPositionChange, onTransformChange 
 
     return (
         <div className="relative h-full w-full">
-            <NextImage
-                src="https://mms-images.out.customink.com/mms/images/catalog/colors/176101/views/front.jpg"
-                alt="t-shirt"
-                fill
-                className="object-cover"
-            />
+            <div className="flex h-full items-center justify-center p-10">
+                <NextImage
+                    src="/images/t-shirts/t-shirt-black-front.png"
+                    alt="t-shirt"
+                    width={400}
+                    height={400}
+                    style={{ width: "100%", height: "auto" }}
+                    priority
+                    ref={nextImageRef}
+                />
+            </div>
+
             <Stage
-                width={300}
-                height={400}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border"
+                width={imageDimensions.width / 1.8}
+                height={imageDimensions.height / 1.15}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[45%] border"
                 onClick={() => setSelected(false)}
             >
                 <Layer>

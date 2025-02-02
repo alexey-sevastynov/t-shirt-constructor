@@ -34,8 +34,8 @@ export function Constructor() {
     };
 
     return (
-        <div className="flex h-screen w-screen flex-col lg:flex-row">
-            <div className="flex h-1/2 flex-col items-center justify-center gap-4 bg-gray-200 p-4 lg:h-full lg:w-1/2">
+        <div className="flex min-h-screen w-screen flex-col lg:h-screen lg:flex-row">
+            <div className="flex h-auto flex-col items-center justify-center gap-4 bg-gray-200 p-4 lg:h-full lg:w-1/2">
                 <Toolbar
                     onFileChange={handleFileChange}
                     removeObject={handleRemoveImage}
@@ -45,7 +45,7 @@ export function Constructor() {
                     canRedo={canRedo}
                 />
             </div>
-            <div className="flex h-1/2 items-center justify-center bg-gray-100 lg:h-full lg:w-1/2">
+            <div className="flex h-auto items-center justify-center bg-white lg:h-full lg:w-1/2">
                 <CanvasDisplay
                     imageState={present}
                     onPositionChange={handlePositionChange}
