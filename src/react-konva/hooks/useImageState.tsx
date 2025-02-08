@@ -1,5 +1,7 @@
 import { useCallback } from "react";
 import { ImageState } from "@/react-konva/interfaces/image-state";
+import { useKeyPress } from "@/react-konva/hooks/use-key-press/useKeyPress";
+import { keyNames } from "@/react-konva/hooks/use-key-press/key-press-constants";
 
 interface UseImageStateProps {
     updateState: (newState: ImageState) => void;
@@ -35,6 +37,15 @@ export function useImageState({ updateState, currentState }: UseImageStateProps)
             height: 0,
         });
     }, [updateState, currentState]);
+
+    useKeyPress(
+        keyNames.delete,
+        () => {
+            handleRemoveImage();
+        },
+        {},
+        [updateState, currentState],
+    );
 
     return {
         handleImageUpload,

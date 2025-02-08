@@ -1,4 +1,6 @@
 import { useState, useCallback } from "react";
+import { useKeyPress } from "@/react-konva/hooks/use-key-press/useKeyPress";
+import { keyNames } from "@/react-konva/hooks/use-key-press/key-press-constants";
 
 export function useUndoRedo<T>(initialState: T) {
     const [past, setPast] = useState<T[]>([]);
@@ -14,7 +16,6 @@ export function useUndoRedo<T>(initialState: T) {
             setPresent(newState);
             setFuture([]);
         },
-
         [present],
     );
 
@@ -32,11 +33,20 @@ export function useUndoRedo<T>(initialState: T) {
         if (!canRedo) return;
 
         const [newPresent, ...newFuture] = future;
-
         setPast((p) => [...p, present]);
         setFuture(newFuture);
         setPresent(newPresent);
     }, [future, present, canRedo]);
+
+    useKeyPress(
+        keyNames.z,
+        (event) => {
+            if (!event.shiftKey) undo();
+        },
+        { ctrl: true },
+    );
+
+    useKeyPress(keyNames.z, redo, { ctrl: true, shift: true });
 
     return {
         state: present,
