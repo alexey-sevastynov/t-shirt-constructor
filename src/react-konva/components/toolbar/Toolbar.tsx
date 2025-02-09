@@ -1,6 +1,8 @@
 import React from "react";
 import { ViewSwitcher } from "@/react-konva/components/toolbar/view-switcher/ViewSwitcher";
 import { Orientation } from "@/react-konva/components/toolbar/view-switcher/view-switcher-constants";
+import { ColorSwitcher } from "@/react-konva/components/toolbar/color-switcher/ColorSwitcher";
+import { Color } from "@/react-konva/components/toolbar/color-switcher/color-switcher-constants";
 
 interface ToolbarProps {
     onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,6 +13,8 @@ interface ToolbarProps {
     canRedo: boolean;
     orientation: Orientation;
     onOrientationChange: (orientation: Orientation) => void;
+    color: Color;
+    onColorChange: (color: Color) => void;
 }
 
 export function Toolbar({
@@ -22,6 +26,8 @@ export function Toolbar({
     canRedo,
     orientation,
     onOrientationChange,
+    color,
+    onColorChange,
 }: ToolbarProps) {
     return (
         <div className="flex flex-col items-center justify-center gap-4 bg-gray-200 p-4">
@@ -54,7 +60,8 @@ export function Toolbar({
             </button>
             <input type="file" accept="image/*" onChange={onFileChange} className="mb-2" />
 
-            <ViewSwitcher orientation={orientation} onOrientationChange={onOrientationChange} />
+            <ColorSwitcher color={color} onColorChange={onColorChange} />
+            <ViewSwitcher orientation={orientation} onOrientationChange={onOrientationChange} color={color} />
         </div>
     );
 }

@@ -1,4 +1,5 @@
 import { Orientation } from "@/react-konva/components/toolbar/view-switcher/view-switcher-constants";
+import { Color } from "@/react-konva/components/toolbar/color-switcher/color-switcher-constants";
 
 export interface CanvasDisplayProps {
     imageState: {
@@ -14,4 +15,5 @@ export interface CanvasDisplayProps {
     onPositionChange: (x: number, y: number) => void;
     onTransformChange: (x: number, y: number, scaleX: number, scaleY: number, rotation: number) => void;
     orientation: Orientation;
+    color: Color;
 }

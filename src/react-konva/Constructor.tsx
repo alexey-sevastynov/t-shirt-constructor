@@ -11,9 +11,11 @@ import {
     Orientation,
     orientations,
 } from "@/react-konva/components/toolbar/view-switcher/view-switcher-constants";
+import { Color, colors } from "@/react-konva/components/toolbar/color-switcher/color-switcher-constants";
 
 export function Constructor() {
     const [orientation, setOrientation] = useState(orientations.front);
+    const [color, setColor] = useState(colors.black);
 
     const {
         state: present,
@@ -43,6 +45,10 @@ export function Constructor() {
         setOrientation(orientation);
     }, []);
 
+    const onColorChange = useCallback((color: Color) => {
+        setColor(color);
+    }, []);
+
     return (
         <div className="flex min-h-screen w-screen flex-col lg:h-screen lg:flex-row">
             <div className="flex h-auto flex-col items-center justify-center gap-4 bg-gray-200 p-4 lg:h-full lg:w-1/2">
@@ -55,6 +61,8 @@ export function Constructor() {
                     canRedo={canRedo}
                     orientation={orientation}
                     onOrientationChange={onOrientationChange}
+                    color={color}
+                    onColorChange={onColorChange}
                 />
             </div>
             <div className="flex h-auto items-center justify-center bg-white lg:h-full lg:w-1/2">
@@ -63,6 +71,7 @@ export function Constructor() {
                     onPositionChange={handlePositionChange}
                     onTransformChange={handleTransformChange}
                     orientation={orientation}
+                    color={color}
                 />
             </div>
         </div>

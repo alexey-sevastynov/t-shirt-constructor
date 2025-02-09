@@ -1,5 +1,6 @@
-import { tShirtModelPaths } from "@/react-konva/constants/model-paths";
-import { getImagePath } from "@/utils/image-path";
+import { getImageTShirtPath } from "@/utils/image-path";
+import { getObjectKeys } from "@/utils/object-keys";
+import { Color } from "@/react-konva/components/toolbar/color-switcher/color-switcher-constants";
 
 export const orientations = {
     front: 0,
@@ -8,28 +9,36 @@ export const orientations = {
     right: 3,
 };
 
-export const tShirtViews: TShirtView[] = [
-    {
-        id: orientations.front,
-        src: getImagePath(tShirtModelPaths.front),
-        alt: "Front view",
-    },
-    {
-        id: orientations.back,
-        src: getImagePath(tShirtModelPaths.back),
-        alt: "Back view",
-    },
-    {
-        id: orientations.left,
-        src: getImagePath(tShirtModelPaths.left),
-        alt: "Left view",
-    },
-    {
-        id: orientations.right,
-        src: getImagePath(tShirtModelPaths.right),
-        alt: "Right view",
-    },
-];
+export const orientationsKeys = getObjectKeys(orientations);
+
+export function getTShirtViews(colorType: Color): TShirtView[] {
+    return [
+        {
+            id: orientations.front,
+            src: getImageTShirtPath(colorType, orientations.front),
+            alt: "Front view",
+            name: "front",
+        },
+        {
+            id: orientations.back,
+            src: getImageTShirtPath(colorType, orientations.back),
+            alt: "Back view",
+            name: "back",
+        },
+        {
+            id: orientations.left,
+            src: getImageTShirtPath(colorType, orientations.left),
+            alt: "Left view",
+            name: "left",
+        },
+        {
+            id: orientations.right,
+            src: getImageTShirtPath(colorType, orientations.right),
+            alt: "Right view",
+            name: "right",
+        },
+    ];
+}
 
 export type Orientation = (typeof orientations)[keyof typeof orientations];
 
@@ -37,4 +46,5 @@ interface TShirtView {
     id: Orientation;
     src: string;
     alt: string;
+    name: string;
 }
