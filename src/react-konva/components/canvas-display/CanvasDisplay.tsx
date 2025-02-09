@@ -4,8 +4,15 @@ import { Layer, Stage, Image as KonvaImage, Transformer } from "react-konva";
 import Konva from "konva";
 import { CanvasDisplayProps } from "@/react-konva/components/canvas-display/canvas-display.interfaces";
 import { useImageDimensions } from "@/react-konva/hooks/useImageDimensions";
+import { getImagePath } from "@/utils/image-path";
+import { tShirtModelKeys, tShirtModelPaths } from "@/react-konva/constants/model-paths";
 
-export function CanvasDisplay({ imageState, onPositionChange, onTransformChange }: CanvasDisplayProps) {
+export function CanvasDisplay({
+    imageState,
+    onPositionChange,
+    onTransformChange,
+    orientation,
+}: CanvasDisplayProps) {
     const imageRef = useRef<Konva.Image>(null);
     const [selected, setSelected] = useState(false);
 
@@ -30,7 +37,7 @@ export function CanvasDisplay({ imageState, onPositionChange, onTransformChange 
         <div className="relative h-full w-full">
             <div className="flex h-full items-center justify-center p-10">
                 <NextImage
-                    src="/images/t-shirts/t-shirt-black-front.png"
+                    src={getImagePath(tShirtModelPaths[tShirtModelKeys[orientation]])}
                     alt="t-shirt"
                     width={400}
                     height={400}

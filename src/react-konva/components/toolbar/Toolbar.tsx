@@ -1,5 +1,6 @@
-// Toolbar.tsx
 import React from "react";
+import { ViewSwitcher } from "@/react-konva/components/toolbar/view-switcher/ViewSwitcher";
+import { Orientation } from "@/react-konva/components/toolbar/view-switcher/view-switcher-constants";
 
 interface ToolbarProps {
     onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -8,9 +9,20 @@ interface ToolbarProps {
     onRedo: () => void;
     canUndo: boolean;
     canRedo: boolean;
+    orientation: Orientation;
+    onOrientationChange: (orientation: Orientation) => void;
 }
 
-export function Toolbar({ onFileChange, removeObject, onUndo, onRedo, canUndo, canRedo }: ToolbarProps) {
+export function Toolbar({
+    onFileChange,
+    removeObject,
+    onUndo,
+    onRedo,
+    canUndo,
+    canRedo,
+    orientation,
+    onOrientationChange,
+}: ToolbarProps) {
     return (
         <div className="flex flex-col items-center justify-center gap-4 bg-gray-200 p-4">
             <p className="text-xl font-semibold text-black">Toolbar</p>
@@ -41,6 +53,8 @@ export function Toolbar({ onFileChange, removeObject, onUndo, onRedo, canUndo, c
                 Remove image
             </button>
             <input type="file" accept="image/*" onChange={onFileChange} className="mb-2" />
+
+            <ViewSwitcher orientation={orientation} onOrientationChange={onOrientationChange} />
         </div>
     );
 }
