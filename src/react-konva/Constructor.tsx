@@ -12,10 +12,18 @@ import {
     orientations,
 } from "@/react-konva/components/toolbar/view-switcher/view-switcher-constants";
 import { Color, colors } from "@/react-konva/components/toolbar/color-switcher/color-switcher-constants";
+import { useScreenshot } from "@/react-konva/hooks/use-screenshot/useScreenshot";
 
 export function Constructor() {
     const [orientation, setOrientation] = useState(orientations.front);
     const [color, setColor] = useState(colors.black);
+    const {
+        screenshot,
+        takeScreenshot,
+        downloadScreenshot,
+        clearScreenshot,
+        ref: canvasDisplayRef,
+    } = useScreenshot();
 
     const {
         state: present,
@@ -63,6 +71,10 @@ export function Constructor() {
                     onOrientationChange={onOrientationChange}
                     color={color}
                     onColorChange={onColorChange}
+                    captureScreenshot={takeScreenshot}
+                    downloadScreenshot={downloadScreenshot}
+                    clearScreenshot={clearScreenshot}
+                    screenshot={screenshot}
                 />
             </div>
             <div className="flex h-auto items-center justify-center bg-white lg:h-full lg:w-1/2">
@@ -72,6 +84,7 @@ export function Constructor() {
                     onTransformChange={handleTransformChange}
                     orientation={orientation}
                     color={color}
+                    ref={canvasDisplayRef}
                 />
             </div>
         </div>

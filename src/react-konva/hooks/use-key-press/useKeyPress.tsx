@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { keyNames } from "@/react-konva/hooks/use-key-press/key-press-constants";
 
 export interface ModifierKeys {
     ctrl?: boolean;
